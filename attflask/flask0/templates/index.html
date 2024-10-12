@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask</title>
+</head>
+<body>
+    <h1>CRUD Restaurante</h1>
+    <form action="/criar" method="post">
+        <input type="text" name="nome" placeholder="Digite o nome do prato" required>
+        <input type="text" name="preco" placeholder="quanto custa" required>
+        <input type="text" name="descricao" placeholder="ingredientes/Descrição do prato" required>
+        <input type="submit" value="Inserir">
+    </form>
+   
+    <hr>
+   <h2>Atualizar prato:</h2>
+    <form action="/alterar" method="post">
+        <input type="text" name="old_name" placeholder="Nome do prato atual"
+        required>
+        <input type="text" name="new_name" placeholder="Novo nome"
+        required>
+        <input type="text" name="new_price" placeholder="novo preço"
+        required>
+        <input type="text" name="new_desc" placeholder="nova descrição"
+        required>
+        <input type="submit" value="Alterar">
+    </form>
+    <hr>
+    <h2>Tirar prato do menu:</h2>
+    <form action="/apagar" method="post">
+        <input type="text" name="nome" placeholder="Nome do prato"
+        required>
+        <input type="submit" value="Apagar">
+    </form>
+    <hr>
+    {% if menu|length > 0: %}
+    <h2>Menu:</h2>
+    <ul>
+        {% for prato in menu %}
+            <li>Nome: {{ prato.getNome() }}</li>
+            <li>Preço: R${{ prato.getPreco() }}</li>
+            <li>Descrição: {{ prato.getDesc() }}</li>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
