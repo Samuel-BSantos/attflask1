@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask</title>
+</head>
+<body>
+    <h1>Estoque</h1>
+    <form action="/adicionar" method="post">
+        <input type="text" name="nome" placeholder="Nome/desc do produto comprado" required>
+        <input type="text" name="qtd" placeholder="Quantidade comprada(kg)" required>
+        <input type="text" name="preco" placeholder="Preço por kg do produto recebido" required>
+        <input type="text" name="data" placeholder="Data que o produto foi recebido" required>
+        <input type="text" name="validade" placeholder="Validade do produto" required>
+        <input type="submit" value="Inserir">
+    </form>
+   
+    <hr>
+   <h2>Atualizar produto em estoque:</h2>
+    <form action="/alterar" method="post">
+        <input type="text" name="nome" placeholder="Nome do produto"
+        required>
+        <input type="text" name="new_qtd" placeholder="Quantidade atual"
+        required>
+        <input type="text" name="new_price" placeholder="Preço atual do produto(por kg)"
+        required>
+        <input type="text" name="new_date" placeholder="Atualizar data(em caso de erro)"
+        required>
+        <input type="text" name="new_vali" placeholder="Atualizar validade(em caso de erro)"
+        required>
+        <input type="submit" value="Alterar">
+    </form>
+    <hr>
+    <h2>Tirar produto do estoque:</h2>
+    <form action="/apagar" method="post">
+        <input type="text" name="nome" placeholder="Nome do produto"
+        required>
+        <input type="submit" value="Apagar">
+    </form>
+    <hr>
+    {% if est|length > 0: %}
+    <h2>Produtos em estoque:</h2>
+    <ul>
+        {% for estoque in est %}
+            <li>Nome: {{ estoque.getNome() }}</li>
+            <li>Quantidade/kg: {{ estoque.getQtd() }}</li>
+            <li>Preço/kg: R${{ estoque.getPreco() }}</li>
+            <li>Data: {{ estoque.getData() }}</li>
+            <li>Validade: {{ estoque.getValidade() }}</li>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
