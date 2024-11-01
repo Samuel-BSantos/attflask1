@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Restaurante</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/stylestoque.css">
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center text-primary mb-5">CRUD Restaurante</h1>
+        
+        <div class="card p-4 mb-5">
+            <h2 class="text-center text-dark mb-4">Adicionar Prato</h2>
+            <form action="/criar" method="post">
+                <div class="form-group">
+                    <input type="text" name="nome" class="form-control" placeholder="Digite o nome do prato" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="preco" class="form-control" placeholder="Quanto custa" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="descricao" class="form-control" placeholder="Ingredientes/Descrição do prato" required>
+                </div>
+                <button type="submit" value="enviar" class="btn btn-success btn-block">Inserir</button>
+            </form>
+        </div>
+        
+        <hr>
+
+        <div class="card p-4 mb-5">
+            <h2 class="text-center text-dark mb-4">Atualizar Prato</h2>
+            <form action="/alterar" method="post">
+                <div class="form-group">
+                    <input type="text" name="old_name" class="form-control" placeholder="Nome do prato atual" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="new_name" class="form-control" placeholder="Novo nome" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="new_price" class="form-control" placeholder="Novo preço" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="new_desc" class="form-control" placeholder="Nova descrição" required>
+                </div>
+                <button type="submit" class="btn btn-warning btn-block">Alterar</button>
+            </form>
+        </div>
+        
+        <hr>
+
+        <div class="card p-4 mb-5">
+            <h2 class="text-center text-dark mb-4">Tirar Prato do Menu</h2>
+            <form action="/apagar" method="post">
+                <div class="form-group">
+                    <input type="text" name="nome" class="form-control" placeholder="Nome do prato" required>
+                </div>
+                <button type="submit" class="btn btn-danger btn-block">Apagar</button>
+            </form>
+        </div>
+        
+        <hr>
+
+        {% if menu|length > 0 %}
+        <div class="card p-4">
+            <h2 class="text-center text-dark mb-4">Menu</h2>
+            <ul class="list-group">
+                {% for prato in menu %}
+                    <li class="list-group-item">
+                        <strong>Nome:</strong> {{ prato.getNome() }} <br>
+                        <strong>Preço:</strong> R${{ prato.getPreco() }} <br>
+                        <strong>Descrição:</strong> {{ prato.getDesc() }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <a href="{{ url_for('esto') }}" class="btn btn-primary btn-lg">Gerenciar Estoque</a>
+    </div>
+</body>
+</html>
